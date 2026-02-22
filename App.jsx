@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import './App.css';
 
 const API_BASE = import.meta.env.DEV
@@ -314,6 +315,7 @@ function App() {
         <span>Files are processed temporarily and deleted immediately after download.</span>
         <span className="footer-api">API: {API_BASE}</span>
       </footer>
+      <Analytics />
     </div>
   );
 }
