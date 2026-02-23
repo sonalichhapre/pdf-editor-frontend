@@ -78,13 +78,13 @@ function App() {
       fd.append('file', file);
       fd.append('target_size_kb', targetSizeKb);
       if (ext === 'pdf') {
-        const res = await fetch(`${API_BASE}/pdf-to-word`, { method: 'POST', body: fd });
+        const res = await fetch(`${API_BASE}/reduce-pdf`, { method: 'POST', body: fd });
         if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || 'Failed');
-        triggerDownload(await res.blob(), file.name.replace(/\.pdf$/i, '_reduced.docx'));
+        triggerDownload(await res.blob(), file.name.replace(/\.pdf$/i, '_reduced.pdf'));
       } else {
-        const res = await fetch(`${API_BASE}/word-to-pdf`, { method: 'POST', body: fd });
+        const res = await fetch(`${API_BASE}/reduce-word`, { method: 'POST', body: fd });
         if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || 'Failed');
-        triggerDownload(await res.blob(), file.name.replace(/\.(docx?)$/i, '_reduced.pdf'));
+        triggerDownload(await res.blob(), file.name.replace(/\.(docx?)$/i, '_reduced.docx'));
       }
     } catch (e) {
       setError(e.message || 'Failed');
