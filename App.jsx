@@ -3,7 +3,7 @@ import './App.css';
 
 const API_BASE = import.meta.env.DEV
   ? (import.meta.env.VITE_API_URL || '/api')
-  : (import.meta.env.VITE_API_URL || 'https://pdf-editor-backend-uhzv.onrender.com');
+  : (import.meta.env.VITE_API_URL || 'https://pdf-editor-backend-1.onrender.com');
 
 function App() {
   const [activeTab, setActiveTab] = useState('pdf-to-doc');
