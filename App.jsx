@@ -5,6 +5,15 @@ const API_BASE = import.meta.env.DEV
   ? (import.meta.env.VITE_API_URL || '/api')
   : (import.meta.env.VITE_API_URL || 'https://pdf-editor-backend-1.onrender.com');
 
+const LoadingOverlay = ({ message }) => (
+  <div className="loading-overlay">
+    <div className="loading-box">
+      <div className="spinner"></div>
+      <p className="loading-title">{message}</p>
+      <p className="loading-sub">First load may take ~30 sec.<br />Please don't close this tab.</p>
+    </div>
+  </div>
+);
 function App() {
   const [activeTab, setActiveTab] = useState('pdf-to-doc');
   const [file, setFile] = useState(null);
@@ -12,7 +21,7 @@ function App() {
   const [targetSizeKb, setTargetSizeKb] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const [loadingMessage, setLoadingMessage] = useState('');
   const triggerDownload = (blob, filename) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -29,6 +38,7 @@ function App() {
 
   const handlePdfToDoc = async () => {
     if (!file) { setError('Please select a PDF file'); return; }
+    setLoadingMessage('Converting PDF to Word…');
     setLoading(true); setError('');
     try {
       const fd = new FormData();
@@ -48,6 +58,7 @@ function App() {
 
   const handleDocToPdf = async () => {
     if (!file) { setError('Please select a Word file'); return; }
+    setLoadingMessage('Converting Word to PDF…');
     setLoading(true); setError('');
     try {
       const fd = new FormData();
@@ -72,6 +83,7 @@ function App() {
       return;
     }
     const ext = file.name.split('.').pop()?.toLowerCase();
+    setLoadingMessage('Compressing your file…');
     setLoading(true); setError('');
     try {
       const fd = new FormData();
@@ -121,6 +133,7 @@ function App() {
 
   const handleMergePdf = async () => {
     if (files.length < 2) { setError('Please select at least 2 PDF files'); return; }
+    setLoadingMessage('Merging your PDFs…');
     setLoading(true); setError('');
     try {
       const fd = new FormData();
@@ -328,8 +341,8 @@ function App() {
             </button>
           </section>
         )}
-
         {error && <p className="error-msg">{error}</p>}
+        {loading && <LoadingOverlay message={loadingMessage} />}
       </main>
 
       <footer className="footer">
