@@ -149,8 +149,30 @@ function App() {
     <div className="app">
       <header className="header">
         <h1>Document Converter</h1>
-        <p className="tagline">PDF ↔ Word • Reduce Size • Merge PDF</p>
+        <p className="tagline">Built for students, educators & government professionals</p>
       </header>
+
+      <section className="hero">
+        <p className="hero-sub">Everything you need to handle documents — free, fast, no signup</p>
+        <div className="hero-features">
+          <div className="hero-feature">
+            <span className="hero-icon">📄</span>
+            <span>PDF to Word</span>
+          </div>
+          <div className="hero-feature">
+            <span className="hero-icon">📝</span>
+            <span>Word to PDF</span>
+          </div>
+          <div className="hero-feature">
+            <span className="hero-icon">📦</span>
+            <span>Reduce File Size</span>
+          </div>
+          <div className="hero-feature">
+            <span className="hero-icon">🔗</span>
+            <span>Merge PDFs</span>
+          </div>
+        </div>
+      </section>
 
       <nav className="tabs-nav">
         {[
