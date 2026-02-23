@@ -161,7 +161,7 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Document Converter</h1>
+        <h1>DocEase</h1>
         <p className="tagline">Built for students, educators & government professionals</p>
       </header>
 
