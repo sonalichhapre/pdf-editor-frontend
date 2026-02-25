@@ -1,6 +1,6 @@
 export const API_BASE = import.meta.env.DEV
   ? (import.meta.env.VITE_API_URL || '/api')
-  : (import.meta.env.VITE_API_URL || 'http://localhost:8000');
+  : (import.meta.env.VITE_API_URL || 'https://pdf-editor-backend-1.onrender.com');
 
 export const FREE_DAILY_LIMIT = 999999; // Effectively unlimited (all free for now)
 
