@@ -1,0 +1,28 @@
+.tool-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 0 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.tool-page .target-row label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.tool-page .target-input {
+  padding: 0.6rem 0.85rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 12rem;
+}
+
+.tool-page .target-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}

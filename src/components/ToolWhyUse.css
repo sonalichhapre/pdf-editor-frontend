@@ -1,0 +1,67 @@
+.tool-why-use {
+  padding: 2.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.tool-why-use-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.tool-why-use-intro {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  max-width: 600px;
+}
+
+.tool-why-use-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.tool-why-use-card {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(13, 148, 136, 0.12);
+  border-radius: 18px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-why-use-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(13, 148, 136, 0.1);
+  border-color: rgba(13, 148, 136, 0.25);
+}
+
+.tool-why-use-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  background: rgba(13, 148, 136, 0.1);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.tool-why-use-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.tool-why-use-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

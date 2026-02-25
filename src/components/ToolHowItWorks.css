@@ -1,0 +1,71 @@
+.tool-how-it-works {
+  padding: 2.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.tool-how-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.tool-how-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.tool-how-step {
+  flex: 1;
+  min-width: 140px;
+  max-width: 220px;
+  text-align: center;
+  position: relative;
+}
+
+.tool-how-step-num {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+.tool-how-step-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+}
+
+.tool-how-step-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.tool-how-arrow {
+  position: absolute;
+  right: -1rem;
+  top: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .tool-how-arrow {
+    display: none;
+  }
+}

@@ -1,0 +1,115 @@
+.tool-hero {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 24px rgba(13, 148, 136, 0.08);
+}
+
+.tool-hero-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.tool-hero-subheading {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  max-width: 560px;
+}
+
+.tool-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tool-hero-trust-item {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(13, 148, 136, 0.08);
+  color: var(--accent-hover);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tool-hero-upload-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.tool-hero-input {
+  display: none;
+}
+
+.tool-hero-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.04) 0%, rgba(20, 184, 166, 0.06) 100%);
+  border: 2px dashed rgba(13, 148, 136, 0.4);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-hero-dropzone:hover {
+  border-color: var(--accent);
+  background: rgba(13, 148, 136, 0.08);
+}
+
+.tool-hero-dropzone-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.tool-hero-dropzone-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.tool-hero-dropzone-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.tool-hero-form {
+  margin-top: 1.5rem;
+}
+
+.tool-hero-form .target-row,
+.tool-hero-form .merge-list {
+  margin: 1rem 0;
+}
+
+.tool-hero-form .btn-primary {
+  width: 100%;
+  max-width: 320px;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+  border-radius: 18px;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.tool-hero-form .error-msg,
+.tool-hero-form .warning-msg {
+  margin-top: 1rem;
+  text-align: center;
+}

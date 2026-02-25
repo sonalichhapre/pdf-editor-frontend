@@ -1,0 +1,50 @@
+.page-cta {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.06) 0%, rgba(20, 184, 166, 0.08) 100%);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  border-radius: var(--radius-xl);
+}
+
+.page-cta-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.page-cta-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+.page-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0f766e 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+}
+
+.page-cta-btn.btn-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(13, 148, 136, 0.5);
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
