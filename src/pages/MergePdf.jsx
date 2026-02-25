@@ -3,6 +3,7 @@ import { API_BASE } from '../utils/api';
 import { setPageMeta } from '../utils/seo';
 import { useConverter } from '../hooks/useConverter';
 import ToolHero from '../components/ToolHero';
+import MergeFileUpload from '../components/MergeFileUpload';
 import ToolWhyUse from '../components/ToolWhyUse';
 import ToolHowItWorks from '../components/ToolHowItWorks';
 import PageFaq from '../components/PageFaq';
@@ -21,21 +22,15 @@ function MergePdf() {
     });
   }, []);
 
-  const moveFile = (index, direction) => {
-    const newFiles = [...files];
-    const target = index + direction;
-    if (target < 0 || target >= newFiles.length) return;
-    [newFiles[index], newFiles[target]] = [newFiles[target], newFiles[index]];
-    setFiles(newFiles);
-  };
-
-  const moveToStart = (i) => { if (i === 0) return; const n = [...files]; const [item] = n.splice(i, 1); setFiles([item, ...n]); };
-  const moveToEnd = (i) => { if (i === files.length - 1) return; const n = [...files]; const [item] = n.splice(i, 1); setFiles([...n, item]); };
-  const removeFile = (i) => setFiles(files.filter((_, i2) => i2 !== i));
-
   const handleMerge = async () => {
-    if (files.length < 2) { setError('Please select at least 2 PDF files'); return; }
-    if (!canConvert()) { setError('Daily limit reached.'); return; }
+    if (files.length < 2) {
+      setError('Please add at least 2 PDF files to merge.');
+      return;
+    }
+    if (!canConvert()) {
+      setError('Daily limit reached.');
+      return;
+    }
     setLoading(true);
     setError('');
     try {
@@ -56,36 +51,23 @@ function MergePdf() {
     <div className="tool-page">
       <ToolHero
         title="Merge PDF Files"
-        subheading="Combine multiple PDFs into one. Upload 2+ files, reorder with arrows, merge in seconds. Free, secure, no signup."
-        uploadProps={{
-          accept: '.pdf',
-          multiple: true,
-          id: 'merge-input',
-          files,
-          onFileChange: setFiles,
-          placeholder: 'Choose PDF files',
-          label: 'Click or drag PDF files here',
-        }}
+        subheading="Combine multiple PDFs into one. Add files, reorder with arrows, merge in seconds. Free, secure, no signup."
+        hideDefaultUpload
       >
-        {files.length > 0 && (
-          <div className="merge-list">
-            <span className="merge-list-hint">Set order:</span>
-            {files.map((f, i) => (
-              <div key={`${f.name}-${i}`} className="merge-item">
-                <span className="merge-order">{i + 1}</span>
-                <span className="merge-filename" title={f.name}>{f.name}</span>
-                <div className="merge-actions">
-                  <button type="button" className="merge-btn" onClick={() => moveToStart(i)} disabled={i === 0} title="Start">⏮</button>
-                  <button type="button" className="merge-btn" onClick={() => moveFile(i, -1)} disabled={i === 0} title="Up">↑</button>
-                  <button type="button" className="merge-btn" onClick={() => moveFile(i, 1)} disabled={i === files.length - 1} title="Down">↓</button>
-                  <button type="button" className="merge-btn" onClick={() => moveToEnd(i)} disabled={i === files.length - 1} title="End">⏭</button>
-                  <button type="button" className="merge-btn merge-btn-remove" onClick={() => removeFile(i)} title="Remove">✕</button>
-                </div>
-              </div>
-            ))}
-          </div>
+        <MergeFileUpload
+          files={files}
+          onFilesChange={setFiles}
+          accept=".pdf"
+          fileTypeLabel="PDF files"
+        />
+        {files.length === 1 && (
+          <p className="merge-validation-msg">Add at least one more file to merge.</p>
         )}
-        <button className="btn-primary" onClick={handleMerge} disabled={loading || files.length < 2}>
+        <button
+          className="btn-primary"
+          onClick={handleMerge}
+          disabled={loading || files.length < 2}
+        >
           {loading ? 'Merging...' : 'Merge PDFs'}
         </button>
         {error && <p className="error-msg">{error}</p>}
