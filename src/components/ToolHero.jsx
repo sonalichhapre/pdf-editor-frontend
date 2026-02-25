@@ -4,7 +4,7 @@ import './ToolHero.css';
 
 const TRUST_ITEMS = ['Secure', 'Instant', 'No Signup', 'Auto-delete files'];
 
-export default function ToolHero({ title, subheading, children, uploadProps }) {
+export default function ToolHero({ title, subheading, children, uploadProps, hideDefaultUpload }) {
   const inputRef = useRef(null);
   const { accept, multiple, id = 'tool-file-input', onFileChange, file, files, placeholder, label } = uploadProps || {};
 
@@ -37,6 +37,7 @@ export default function ToolHero({ title, subheading, children, uploadProps }) {
             <span key={t} className="tool-hero-trust-item">{t}</span>
           ))}
         </div>
+        {!hideDefaultUpload && (
         <div className="tool-hero-upload-wrap">
           <input
             ref={inputRef}
@@ -62,6 +63,7 @@ export default function ToolHero({ title, subheading, children, uploadProps }) {
             <span className="tool-hero-dropzone-hint">{label || 'Click or drag files here'}</span>
           </div>
         </div>
+        )}
         <div className="tool-hero-form">
           {children}
         </div>
