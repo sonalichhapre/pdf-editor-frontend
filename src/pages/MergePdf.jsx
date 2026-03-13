@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
-import { setPageMeta } from '../utils/seo';
 import { useConverter } from '../hooks/useConverter';
 import ToolHero from '../components/ToolHero';
 import MergeFileUpload from '../components/MergeFileUpload';
@@ -11,16 +11,9 @@ import ToolPageCta from '../components/ToolPageCta';
 import { PAGE_FAQS, TOOL_WHY_USE } from '../data/pageContent';
 import './ToolPage.css';
 
-function MergePdf() {
+export default function MergePdf() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
   const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    setPageMeta({
-      title: 'Merge PDF Files - Free Online | DocEase',
-      description: 'Combine multiple PDFs into one. Free, secure. Set order and merge in seconds.',
-    });
-  }, []);
 
   const handleMerge = async () => {
     if (files.length < 2) {
@@ -49,6 +42,10 @@ function MergePdf() {
 
   return (
     <div className="tool-page">
+      <Helmet>
+        <title>Merge PDF Files Free Online — DocEase</title>
+        <meta name="description" content="Combine multiple PDF files into one document. Reorder pages, merge instantly. Free online PDF merger with no file size limits." />
+      </Helmet>
       <ToolHero
         title="Merge PDF Files"
         subheading="Combine multiple PDFs into one. Add files, reorder with arrows, merge in seconds. Free, secure, no signup."
@@ -72,7 +69,6 @@ function MergePdf() {
         </button>
         {error && <p className="error-msg">{error}</p>}
       </ToolHero>
-
       <ToolWhyUse {...TOOL_WHY_USE['merge-pdf']} />
       <ToolHowItWorks />
       <PageFaq items={PAGE_FAQS['merge-pdf']} />
@@ -80,5 +76,3 @@ function MergePdf() {
     </div>
   );
 }
-
-export default MergePdf;
