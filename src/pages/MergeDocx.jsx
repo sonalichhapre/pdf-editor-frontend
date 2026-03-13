@@ -1,3 +1,4 @@
+import { useLiveUserCount } from '../hooks/useLiveUserCount';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
@@ -10,7 +11,6 @@ import PageFaq from '../components/PageFaq';
 import ToolPageCta from '../components/ToolPageCta';
 import { PAGE_FAQS, TOOL_WHY_USE } from '../data/pageContent';
 import './ToolPage.css';
-import { useLiveUserCount } from '../hooks/useLiveUserCount';
 
 export default function MergeDocx() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
