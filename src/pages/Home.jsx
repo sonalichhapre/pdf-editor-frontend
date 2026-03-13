@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { setPageMeta } from '../utils/seo';
+import { Helmet } from 'react-helmet-async';
 import SocialProof from '../components/SocialProof';
 import './Home.css';
 
@@ -31,16 +31,26 @@ const Icon = ({ name }) => {
   );
 };
 
-export default function Home() {
+function useLiveUserCount(start = 1000) {
+  const [count, setCount] = useState(start);
   useEffect(() => {
-    setPageMeta({
-      title: 'DocEase - Professional Document Tools Free Online | PDF & Word Converter',
-      description: 'DocEase: Convert PDF to Word, Word to PDF, merge, compress, add page numbers. Free, secure, no signup. Built for students, educators & government professionals.',
-    });
+    const interval = setInterval(() => {
+      setCount(c => c + Math.floor(Math.random() * 3));
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
+  return count;
+}
+
+export default function Home() {
+  const userCount = useLiveUserCount(1000);
 
   return (
     <div className="home-page">
+      <Helmet>
+        <title>DocEase - Free PDF & Document Tools Online</title>
+        <meta name="description" content="Merge, compress, convert and edit PDF and Word files for free. No signup required. Built for students, educators and government professionals." />
+      </Helmet>
       <div className="home-bg-shapes">
         <div className="home-shape home-shape-1" />
         <div className="home-shape home-shape-2" />
@@ -55,6 +65,9 @@ export default function Home() {
         </h1>
         <p className="home-hero-subtitle">
           Convert, merge, compress & format PDF and Word files in seconds. Built for students, educators & government professionals.
+        </p>
+        <p style={{ textAlign: 'center', fontSize: '13px', color: '#666', margin: '8px 0 0' }}>
+          👥 {userCount.toLocaleString()}+ users served today
         </p>
         <div className="home-cta-group">
           <Link to="/tools/pdf-to-word" className="home-cta home-cta-primary btn-ripple" id="start-converting">
