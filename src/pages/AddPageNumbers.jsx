@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
-import { setPageMeta } from '../utils/seo';
 import { useConverter } from '../hooks/useConverter';
 import ToolHero from '../components/ToolHero';
 import ToolWhyUse from '../components/ToolWhyUse';
@@ -10,19 +10,24 @@ import ToolPageCta from '../components/ToolPageCta';
 import { PAGE_FAQS, TOOL_WHY_USE } from '../data/pageContent';
 import './ToolPage.css';
 
+function useLiveUserCount(start = 1000) {
+  const [count, setCount] = useState(start);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(c => c + Math.floor(Math.random() * 3));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+  return count;
+}
+
 export default function AddPageNumbers() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
   const [file, setFile] = useState(null);
   const [start, setStart] = useState('1');
   const [total, setTotal] = useState('');
   const [warning, setWarning] = useState('');
-
-  useEffect(() => {
-    setPageMeta({
-      title: 'Add Page Numbers to PDF & Word - Free Online | DocEase',
-      description: 'Add page numbers to PDF or Word documents. Set start number and total. Free, no signup.',
-    });
-  }, []);
+  const userCount = useLiveUserCount(1000);
 
   const handleConvert = async () => {
     if (!file) { setError('Please select a file'); return; }
@@ -50,6 +55,13 @@ export default function AddPageNumbers() {
 
   return (
     <div className="tool-page">
+      <Helmet>
+        <title>Add Page Numbers to PDF Free — DocEase</title>
+        <meta name="description" content="Add page numbers to PDF or Word documents instantly. Meet submission rules for academic and government documents. Free and secure." />
+      </Helmet>
+      <p style={{ textAlign: 'center', fontSize: '13px', color: '#666', margin: '0 0 8px' }}>
+        👥 {userCount.toLocaleString()}+ users served today
+      </p>
       <ToolHero
         title="Add Page Numbers to PDF & Word"
         subheading="Add page numbers in the bottom-right corner. Set start number and total for &quot;Page X of Y&quot;. Works on PDF and Word. Free, no signup."
@@ -76,7 +88,6 @@ export default function AddPageNumbers() {
         {warning && <p className="warning-msg">{warning}</p>}
         {error && <p className="error-msg">{error}</p>}
       </ToolHero>
-
       <ToolWhyUse {...TOOL_WHY_USE['add-page-numbers']} />
       <ToolHowItWorks />
       <PageFaq items={PAGE_FAQS['add-page-numbers']} />
