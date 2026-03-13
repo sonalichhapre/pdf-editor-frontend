@@ -2,31 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://getdocease.vercel.app/</loc>
-    <lastmod>2026-02-24</lastmod>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://getdocease.vercel.app/pdf-to-word</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://getdocease.vercel.app/tools/pdf-to-word</loc>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getdocease.vercel.app/word-to-pdf</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://getdocease.vercel.app/tools/word-to-pdf</loc>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getdocease.vercel.app/merge-pdf</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://getdocease.vercel.app/tools/merge-pdf</loc>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://getdocease.vercel.app/compress-pdf</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://getdocease.vercel.app/tools/compress-pdf</loc>
+    <lastmod>2026-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getdocease.vercel.app/tools/reduce-size</loc>
+    <lastmod>2026-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getdocease.vercel.app/tools/merge-docx</loc>
+    <lastmod>2026-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getdocease.vercel.app/tools/add-page-numbers</loc>
+    <lastmod>2026-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getdocease.vercel.app/tools/remove-watermark</loc>
+    <lastmod>2026-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
