@@ -58,4 +58,25 @@ export default function RemoveWatermark() {
       </p>
       <ToolHero
         title="Remove Watermark from PDF & Word"
-        subheading="Remove watermarks
+        subheading="Remove watermarks from PDF or Word. PDF: annotation watermarks. Word: DRAFT, CONFIDENTIAL, header watermarks. Free, secure, no signup."
+        uploadProps={{
+          accept: '.pdf,.docx,.doc',
+          id: 'watermark-input',
+          file,
+          onFileChange: setFile,
+          placeholder: 'Choose PDF or Word file',
+          label: 'Click or drag your file here',
+        }}
+      >
+        <button className="btn-primary" onClick={handleConvert} disabled={loading || !file}>
+          {loading ? 'Removing...' : 'Remove Watermark'}
+        </button>
+        {error && <p className="error-msg">{error}</p>}
+      </ToolHero>
+      <ToolWhyUse {...TOOL_WHY_USE['remove-watermark']} />
+      <ToolHowItWorks />
+      <PageFaq items={PAGE_FAQS['remove-watermark']} />
+      <ToolPageCta />
+    </div>
+  );
+}
