@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
-import { setPageMeta } from '../utils/seo';
 import { useConverter } from '../hooks/useConverter';
 import ToolHero from '../components/ToolHero';
 import ToolWhyUse from '../components/ToolWhyUse';
@@ -13,13 +13,6 @@ import './ToolPage.css';
 export default function PdfToWord() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
   const [file, setFile] = useState(null);
-
-  useEffect(() => {
-    setPageMeta({
-      title: 'PDF to Word Converter - Free Online | DocEase',
-      description: 'Convert PDF to Word (.docx) instantly. Free, secure, no signup. Edit PDFs in Word format.',
-    });
-  }, []);
 
   const handleConvert = async () => {
     if (!file) { setError('Please select a PDF file'); return; }
@@ -45,6 +38,10 @@ export default function PdfToWord() {
 
   return (
     <div className="tool-page">
+      <Helmet>
+        <title>PDF to Word Converter Free Online — DocEase</title>
+        <meta name="description" content="Convert PDF to editable Word document in seconds. Preserve layout, fonts and formatting. Free, no signup, instant download." />
+      </Helmet>
       <ToolHero
         title="PDF to Word Converter"
         subheading="Convert PDF to editable Word (.docx) format. Preserve layout, extract text, edit anywhere. Free, secure, no signup."
@@ -62,7 +59,6 @@ export default function PdfToWord() {
         </button>
         {error && <p className="error-msg">{error}</p>}
       </ToolHero>
-
       <ToolWhyUse {...TOOL_WHY_USE['pdf-to-word']} />
       <ToolHowItWorks />
       <PageFaq items={PAGE_FAQS['pdf-to-word']} />
