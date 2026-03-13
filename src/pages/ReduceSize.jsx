@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
-import { setPageMeta } from '../utils/seo';
 import { useConverter } from '../hooks/useConverter';
 import ToolHero from '../components/ToolHero';
 import ToolWhyUse from '../components/ToolWhyUse';
@@ -14,13 +14,6 @@ export default function ReduceSize() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
   const [file, setFile] = useState(null);
   const [targetSizeKb, setTargetSizeKb] = useState('');
-
-  useEffect(() => {
-    setPageMeta({
-      title: 'Reduce PDF & Word File Size - Free Online | DocEase',
-      description: 'Compress PDF or Word to a target size. Free, secure. Reduce file size while keeping format.',
-    });
-  }, []);
 
   const handleConvert = async () => {
     if (!file) { setError('Please select a file'); return; }
@@ -48,6 +41,10 @@ export default function ReduceSize() {
 
   return (
     <div className="tool-page">
+      <Helmet>
+        <title>Reduce PDF Size Free — Shrink PDF Files Online — DocEase</title>
+        <meta name="description" content="Shrink large PDF files to a target size instantly. Same format, smaller file. Free online tool for students and professionals." />
+      </Helmet>
       <ToolHero
         title="Reduce PDF & Word File Size"
         subheading="Compress files to a target size. Same format output—PDF stays PDF, Word stays Word. Meet email limits. Free, secure."
@@ -69,7 +66,6 @@ export default function ReduceSize() {
         </button>
         {error && <p className="error-msg">{error}</p>}
       </ToolHero>
-
       <ToolWhyUse {...TOOL_WHY_USE['reduce-size']} />
       <ToolHowItWorks />
       <PageFaq items={PAGE_FAQS['reduce-size']} />
