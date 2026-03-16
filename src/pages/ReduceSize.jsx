@@ -9,7 +9,6 @@ import PageFaq from '../components/PageFaq';
 import ToolPageCta from '../components/ToolPageCta';
 import { PAGE_FAQS, TOOL_WHY_USE } from '../data/pageContent';
 import './ToolPage.css';
-import { useLiveUserCount } from '../hooks/useLiveUserCount';
 
 export default function ReduceSize() {
   const { loading, setLoading, error, setError, canConvert, onSuccess } = useConverter();
