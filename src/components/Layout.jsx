@@ -6,7 +6,6 @@ import './Layout.css';
 const TOOLS = [
   { path: '/tools/pdf-to-word', label: 'PDF to Word' },
   { path: '/tools/word-to-pdf', label: 'Word to PDF' },
-  { path: '/tools/edit-pdf', label: 'Edit PDF' },
   { path: '/tools/reduce-size', label: 'Reduce Size' },
   { path: '/tools/merge-pdf', label: 'Merge PDF' },
   { path: '/tools/merge-docx', label: 'Merge DOCX' },
@@ -113,7 +112,6 @@ export default function Layout() {
           <div className="footer-section">
             <h4 className="footer-heading">Edit & Format</h4>
             <div className="footer-links">
-              <Link to="/tools/edit-pdf">Edit PDF</Link>
               <Link to="/tools/reduce-size">Reduce Size</Link>
               <Link to="/tools/add-page-numbers">Add Page Numbers</Link>
               <Link to="/tools/remove-watermark">Remove Watermark</Link>
