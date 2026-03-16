@@ -1,17 +1,36 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import SocialProof from '../components/SocialProof';
 import './Home.css';
 
-const TOOLS = [
-  { path: '/tools/pdf-to-word', label: 'PDF to Word', desc: 'Edit PDFs in Word format. Preserve layout, extract text.', icon: 'pdf-word', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/word-to-pdf', label: 'Word to PDF', desc: 'Create PDFs from Word. Perfect formatting for submissions.', icon: 'word-pdf', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/reduce-size', label: 'Reduce Size', desc: 'Compress to target size. Same format, smaller file.', icon: 'compress', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/merge-pdf', label: 'Merge PDF', desc: 'Combine PDFs into one. Reorder, merge in seconds.', icon: 'merge', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/merge-docx', label: 'Merge DOCX', desc: 'Combine Word docs. One file, one click.', icon: 'merge-doc', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/add-page-numbers', label: 'Add Page Numbers', desc: 'Add page numbers to PDF or Word. Meet submission rules.', icon: 'numbers', badges: ['Free', 'Instant', 'Secure'] },
-  { path: '/tools/remove-watermark', label: 'Remove Watermark', desc: 'Remove DRAFT, CONFIDENTIAL. Clean documents.', icon: 'watermark', badges: ['Free', 'Instant', 'Secure'] },
+const TOOL_GROUPS = [
+  {
+    id: 'convert',
+    title: 'Convert',
+    subtitle: 'Switch between PDF and Word formats',
+    tools: [
+      { path: '/tools/pdf-to-word', label: 'PDF to Word', desc: 'Edit PDFs in Word format. Preserve layout, extract text.', icon: 'pdf-word', badges: ['Free', 'Instant', 'Secure'] },
+      { path: '/tools/word-to-pdf', label: 'Word to PDF', desc: 'Create PDFs from Word. Perfect formatting for submissions.', icon: 'word-pdf', badges: ['Free', 'Instant', 'Secure'] },
+    ],
+  },
+  {
+    id: 'edit',
+    title: 'Edit & Format',
+    subtitle: 'Modify, compress, and polish documents',
+    tools: [
+      { path: '/tools/reduce-size', label: 'Reduce Size', desc: 'Compress to target size. Same format, smaller file.', icon: 'compress', badges: ['Free', 'Instant', 'Secure'] },
+      { path: '/tools/add-page-numbers', label: 'Add Page Numbers', desc: 'Add page numbers to PDF or Word. Meet submission rules.', icon: 'numbers', badges: ['Free', 'Instant', 'Secure'] },
+      { path: '/tools/remove-watermark', label: 'Remove Watermark', desc: 'Remove DRAFT, CONFIDENTIAL. Clean documents.', icon: 'watermark', badges: ['Free', 'Instant', 'Secure'] },
+    ],
+  },
+  {
+    id: 'merge',
+    title: 'Merge',
+    subtitle: 'Combine multiple files into one',
+    tools: [
+      { path: '/tools/merge-pdf', label: 'Merge PDF', desc: 'Combine PDFs into one. Reorder, merge in seconds.', icon: 'merge', badges: ['Free', 'Instant', 'Secure'] },
+      { path: '/tools/merge-docx', label: 'Merge DOCX', desc: 'Combine Word docs. One file, one click.', icon: 'merge-doc', badges: ['Free', 'Instant', 'Secure'] },
+    ],
+  },
 ];
 
 const Icon = ({ name }) => {
@@ -31,20 +50,7 @@ const Icon = ({ name }) => {
   );
 };
 
-function useLiveUserCount(start = 1000) {
-  const [count, setCount] = useState(start);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount(c => c + Math.floor(Math.random() * 3));
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-  return count;
-}
-
 export default function Home() {
-  const userCount = useLiveUserCount(1000);
-
   return (
     <div className="home-page">
       <Helmet>
@@ -66,9 +72,6 @@ export default function Home() {
         <p className="home-hero-subtitle">
           Convert, merge, compress & format PDF and Word files in seconds. Built for students, educators & government professionals.
         </p>
-        <p style={{ textAlign: 'center', fontSize: '13px', color: '#666', margin: '8px 0 0' }}>
-          👥 {userCount.toLocaleString()}+ users served today
-        </p>
         <div className="home-cta-group">
           <Link to="/tools/pdf-to-word" className="home-cta home-cta-primary btn-ripple" id="start-converting">
             Start Converting Free
@@ -84,24 +87,31 @@ export default function Home() {
         </div>
       </section>
 
-      <SocialProof />
-
       <section className="home-tools" id="tools">
         <h2 className="home-tools-title">Choose your tool</h2>
-        <div className="home-tool-grid">
-          {TOOLS.map(({ path, label, desc, icon, badges }, i) => (
-            <Link key={path} to={path} className="home-tool-card" style={{ animationDelay: `${i * 0.06}s` }}>
-              <div className="home-tool-card-icon-wrap">
-                <Icon name={icon} />
-              </div>
-              <h3>{label}</h3>
-              <p>{desc}</p>
-              <div className="home-tool-badges">
-                {badges.map((b) => (
-                  <span key={b} className="home-tool-badge">{b}</span>
+        <p className="home-tools-subtitle">Organized by what you need to do</p>
+        <div className="home-tool-groups">
+          {TOOL_GROUPS.map((group, gi) => (
+            <div key={group.id} className="home-tool-group">
+              <h3 className="home-tool-group-title">{group.title}</h3>
+              <p className="home-tool-group-subtitle">{group.subtitle}</p>
+              <div className="home-tool-grid">
+                {group.tools.map(({ path, label, desc, icon, badges }, i) => (
+                  <Link key={path} to={path} className="home-tool-card" style={{ animationDelay: `${(gi * 4 + i) * 0.06}s` }}>
+                    <div className="home-tool-card-icon-wrap">
+                      <Icon name={icon} />
+                    </div>
+                    <h3>{label}</h3>
+                    <p>{desc}</p>
+                    <div className="home-tool-badges">
+                      {badges.map((b) => (
+                        <span key={b} className="home-tool-badge">{b}</span>
+                      ))}
+                    </div>
+                  </Link>
                 ))}
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
