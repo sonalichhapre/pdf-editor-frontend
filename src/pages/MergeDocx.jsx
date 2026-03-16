@@ -1,4 +1,3 @@
-import { useLiveUserCount } from '../hooks/useLiveUserCount';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { API_BASE } from '../utils/api';
