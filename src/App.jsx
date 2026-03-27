@@ -11,6 +11,7 @@ import RemoveWatermark from './pages/RemoveWatermark';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Faq from './pages/Faq';
+import PDFLiveEditor from './pages/PDFLiveEditor';
 import '../App.css';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="tools/merge-docx" element={<MergeDocx />} />
           <Route path="tools/add-page-numbers" element={<AddPageNumbers />} />
           <Route path="tools/remove-watermark" element={<RemoveWatermark />} />
+          <Route path="tools/pdf-editor" element={<PDFLiveEditor />} />
           <Route path="blog" element={<Blog />} />
           <Route path="blog/:slug" element={<BlogPost />} />
           <Route path="faq" element={<Faq />} />
