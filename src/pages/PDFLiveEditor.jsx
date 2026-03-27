@@ -23,7 +23,7 @@ const CSS = `
 }
 
 /* APP SHELL */
-.pdfeditor-app{display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--bg);font-family:'Cabinet Grotesk',sans-serif;}
+.pdfeditor-app{display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;background:var(--bg);font-family:'Cabinet Grotesk',sans-serif;}
 
 /* TOPBAR */
 .pdfeditor-topbar{
@@ -210,7 +210,7 @@ const CSS = `
 
 /* PROGRESS */
 .pdfeditor-progress-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;
+  position:absolute;inset:0;background:rgba(0,0,0,0.6);z-index:9999;
   display:flex;align-items:center;justify-content:center;
 }
 .pdfeditor-progress-box{
@@ -225,7 +225,7 @@ const CSS = `
 
 /* TOAST */
 .pdfeditor-toast{
-  position:fixed;bottom:24px;right:24px;z-index:9998;
+  position:absolute;bottom:24px;right:24px;z-index:9998;
   background:var(--panel);border:1px solid #444;color:#fff;
   font-size:12px;font-family:'DM Mono',monospace;
   padding:12px 18px;border-radius:8px;
@@ -582,7 +582,7 @@ export default function PDFLiveEditor() {
   return (
     <>
       <style>{CSS}</style>
-      <div className="pdfeditor-app">
+      <div className="pdfeditor-app" style={{ position: "relative" }}>
 
         {/* TOP BAR */}
         <div className="pdfeditor-topbar">
