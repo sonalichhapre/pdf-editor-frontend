@@ -11,6 +11,7 @@ const TOOLS = [
   { path: '/tools/merge-docx', label: 'Merge DOCX' },
   { path: '/tools/add-page-numbers', label: 'Add Page Numbers' },
   { path: '/tools/remove-watermark', label: 'Remove Watermark' },
+  { path: '/tools/pdf-editor', label: 'PDF Editor' },
 ];
 
 export default function Layout() {
@@ -115,6 +116,7 @@ export default function Layout() {
               <Link to="/tools/reduce-size">Reduce Size</Link>
               <Link to="/tools/add-page-numbers">Add Page Numbers</Link>
               <Link to="/tools/remove-watermark">Remove Watermark</Link>
+              <Link to="/tools/pdf-editor">PDF Editor</Link>
             </div>
           </div>
           <div className="footer-section">
