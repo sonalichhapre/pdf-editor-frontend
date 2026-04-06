@@ -35,12 +35,18 @@ const CSS = `
 .pdfeditor-topbar-logo{
   font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
   color:#fff;letter-spacing:0.5px;display:flex;align-items:center;gap:8px;
+  min-width:0;overflow:hidden;
+}
+.pdfeditor-topbar-filename{
+  color:#555;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  max-width:200px;
 }
 .pdfeditor-logo-pill{
   background:var(--accent);color:#fff;font-size:9px;font-weight:700;
   padding:2px 7px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;
+  flex-shrink:0;
 }
-.pdfeditor-topbar-actions{display:flex;gap:8px;align-items:center}
+.pdfeditor-topbar-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
 
 /* BUTTONS */
 .pdfeditor-btn{
@@ -59,13 +65,13 @@ const CSS = `
 .pdfeditor-btn-sm{padding:5px 10px;font-size:11px}
 
 /* MAIN LAYOUT */
-.pdfeditor-main{display:flex;flex:1;overflow:hidden}
+.pdfeditor-main{display:flex;flex:1;overflow:hidden;min-height:0}
 
 /* SIDEBAR */
 .pdfeditor-sidebar{
   width:200px;min-width:200px;background:var(--panel);
   border-right:1px solid #333;display:flex;flex-direction:column;
-  overflow-y:auto;
+  overflow-y:auto;flex-shrink:0;
 }
 .pdfeditor-sidebar-section{padding:12px;border-bottom:1px solid #333}
 .pdfeditor-sidebar-label{
@@ -106,6 +112,7 @@ const CSS = `
 .pdfeditor-toolbar{
   height:44px;background:var(--surface);border-bottom:1px solid var(--border);
   display:flex;align-items:center;padding:0 16px;gap:8px;flex-shrink:0;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
 .pdfeditor-tool-sep{width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0}
 .pdfeditor-tool-btn{
@@ -121,6 +128,7 @@ const CSS = `
 .pdfeditor-editor-area{
   flex:1;overflow:auto;display:flex;justify-content:center;
   align-items:flex-start;padding:32px;background:var(--bg);
+  -webkit-overflow-scrolling:touch;
 }
 
 /* PAGE CANVAS WRAPPER */
@@ -137,7 +145,6 @@ const CSS = `
   position:absolute;inset:0;pointer-events:none;overflow:hidden;
 }
 
-/* FIX: white background covers canvas text so no double text */
 .pdfeditor-text-block{
   position:absolute;cursor:text;pointer-events:all;
   border:1px solid transparent;border-radius:2px;
@@ -164,7 +171,6 @@ const CSS = `
   background:#fff!important;
 }
 
-/* Textarea — fills block, transparent bg, inherits text style */
 .pdfeditor-block-textarea{
   position:absolute;inset:0;
   width:100%;height:100%;
@@ -185,6 +191,7 @@ const CSS = `
   box-shadow:var(--shadow-lg);
   pointer-events:all;
   white-space:nowrap;
+  flex-wrap:wrap;
 }
 .pdfeditor-text-toolbar input[type=number]{
   background:#2a2a2c;border:1px solid #444;border-radius:4px;
@@ -231,6 +238,7 @@ const CSS = `
   padding:12px 18px;border-radius:8px;
   animation:pdfToastIn 0.2s ease;box-shadow:var(--shadow-lg);
   display:flex;align-items:center;gap:8px;
+  max-width:calc(100vw - 48px);
 }
 .pdfeditor-toast.success{border-color:var(--success);color:#4ade80}
 .pdfeditor-toast.error{border-color:var(--danger);color:#f87171}
@@ -240,10 +248,45 @@ const CSS = `
 .pdfeditor-statusbar{
   height:28px;background:var(--panel);border-top:1px solid #333;
   display:flex;align-items:center;padding:0 16px;gap:20px;flex-shrink:0;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
-.pdfeditor-status-item{font-size:10px;font-family:'DM Mono',monospace;color:#666;display:flex;align-items:center;gap:5px}
+.pdfeditor-status-item{font-size:10px;font-family:'DM Mono',monospace;color:#666;display:flex;align-items:center;gap:5px;white-space:nowrap}
 .pdfeditor-status-val{color:#aaa}
 .pdfeditor-status-accent{color:var(--accent)}
+
+/* ── MOBILE BOTTOM SHEET for pages (replaces sidebar on mobile) ── */
+.pdfeditor-mobile-bar{
+  display:none;background:var(--panel);border-top:1px solid #333;
+  padding:8px 12px;flex-shrink:0;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.pdfeditor-mobile-thumbs{
+  display:flex;gap:8px;align-items:center;
+}
+.pdfeditor-mobile-thumb{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;padding:4px;border-radius:6px;border:1px solid transparent;
+  transition:all 0.12s;
+}
+.pdfeditor-mobile-thumb.active{border-color:var(--accent);background:#1e3a5f}
+.pdfeditor-mobile-thumb img{width:28px;height:40px;object-fit:contain;background:#fff;border-radius:2px}
+.pdfeditor-mobile-thumb span{font-size:9px;color:#888;font-family:'DM Mono',monospace}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .pdfeditor-sidebar{display:none}
+  .pdfeditor-mobile-bar{display:block}
+  .pdfeditor-topbar{padding:0 10px;gap:6px;height:48px}
+  .pdfeditor-topbar-filename{display:none}
+  .pdfeditor-editor-area{padding:12px 8px}
+  .pdfeditor-toolbar{padding:0 8px;gap:4px;height:40px}
+  .pdfeditor-toolbar .pdfeditor-tool-hint{display:none}
+  .pdfeditor-statusbar{gap:12px;padding:0 10px}
+  .pdfeditor-btn-sm{padding:4px 8px;font-size:11px}
+  .pdfeditor-empty-title{font-size:16px}
+  .pdfeditor-empty-sub{font-size:12px}
+  .pdfeditor-empty-icon{font-size:40px}
+}
 `;
 
 /* ─── LOAD EXTERNAL LIBS ─────────────────────────────────────────────────── */
@@ -283,7 +326,6 @@ function uid() { return Math.random().toString(36).slice(2, 9); }
 
 const SCALE = 1.5;
 
-/* Extract text blocks from a pdf.js page */
 async function extractTextItems(pdfPage, scale) {
   const content = await pdfPage.getTextContent();
   const viewport = pdfPage.getViewport({ scale });
@@ -312,7 +354,6 @@ async function extractTextItems(pdfPage, scale) {
   return items;
 }
 
-/* Render thumbnail (with text, just for sidebar preview) */
 async function renderThumb(pdfDoc, pageNum) {
   const page = await pdfDoc.getPage(pageNum);
   const vp = page.getViewport({ scale: 0.2 });
@@ -342,12 +383,27 @@ export default function PDFLiveEditor() {
   const canvasRef = useRef();
   const fileInputRef = useRef();
   const wrapperRef = useRef();
+  const editorAreaRef = useRef();
   const textRefs = useRef({});
 
   const showToast = useCallback((msg, type = "info") => {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 3000);
   }, []);
+
+  /* ── AUTO-FIT ZOOM ON MOBILE when page size is known ── */
+  useEffect(() => {
+    const ps = pageSizes[currentPage];
+    if (!ps || !ps.w || !editorAreaRef.current) return;
+    const containerWidth = editorAreaRef.current.clientWidth - 24; // padding
+    if (ps.w > containerWidth) {
+      const fitZoom = Math.floor((containerWidth / ps.w) * 100);
+      setZoom(Math.max(30, fitZoom));
+    } else {
+      // On desktop or if page fits, keep 100%
+      setZoom(100);
+    }
+  }, [pageSizes, currentPage]);
 
   /* ── LOAD PDF ── */
   const loadPDF = useCallback(async (file) => {
@@ -366,7 +422,6 @@ export default function PDFLiveEditor() {
       setPageSizes({});
       setFileName(file.name);
 
-      // Generate thumbnails in background (with text, just for the sidebar)
       (async () => {
         for (let p = 1; p <= doc.numPages; p++) {
           const dataUrl = await renderThumb(doc, p);
@@ -403,7 +458,6 @@ export default function PDFLiveEditor() {
 
         setPageSizes(prev => ({ ...prev, [currentPage]: { w: vp.width, h: vp.height } }));
 
-        // Extract text blocks if not yet done for this page
         setTextBlocks(prev => {
           if (prev[currentPage]) return prev;
           (async () => {
@@ -422,15 +476,12 @@ export default function PDFLiveEditor() {
   }, [pdfDoc, currentPage]); // eslint-disable-line
 
   /* ── WHITE OUT canvas text once text blocks load ── */
-  /* This is the core double-text fix: paint white over every text region  */
-  /* so the canvas version disappears and only the overlay textareas show. */
   useEffect(() => {
     const blocks = textBlocks[currentPage];
     if (!canvasRef.current || !blocks || blocks.length === 0) return;
     const ctx = canvasRef.current.getContext("2d");
     ctx.fillStyle = "#ffffff";
     for (const b of blocks) {
-      // Slightly larger rect to fully cover the rendered text
       ctx.fillRect(b.x - 3, b.y - 3, b.w + 12, b.h + 8);
     }
   }, [textBlocks, currentPage]);
@@ -447,7 +498,11 @@ export default function PDFLiveEditor() {
       }
     };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
   }, []);
 
   /* ── UPDATE TEXT BLOCK ── */
@@ -468,7 +523,7 @@ export default function PDFLiveEditor() {
     }
   }, [currentPage]);
 
-  /* ── SELECT BLOCK — single click enters edit mode immediately ── */
+  /* ── SELECT BLOCK ── */
   const selectBlock = useCallback((block, e) => {
     e.stopPropagation();
     setEditingId(block.id);
@@ -480,7 +535,6 @@ export default function PDFLiveEditor() {
       y: Math.max(0, rect.top - wrapRect.top - 56),
     });
 
-    // Focus immediately — no readOnly, single click to type
     const el = textRefs.current[block.id];
     if (el) {
       el.focus();
@@ -521,14 +575,12 @@ export default function PDFLiveEditor() {
           const fw = block.w * scaleX;
           const fh = block.h * scaleY;
 
-          // White out original text in PDF
           pdfPage.drawRectangle({
             x: px - 3, y: py - 3,
             width: fw + 12, height: fh + 8,
             color: rgb(1, 1, 1),
           });
 
-          // Parse hex color
           let r = 0, g = 0, b2 = 0;
           const hex = (block.color || "#000000").replace("#", "");
           if (hex.length === 6) {
@@ -579,6 +631,12 @@ export default function PDFLiveEditor() {
   );
   const zoomScale = zoom / 100;
 
+  const changePage = useCallback((newPage) => {
+    setCurrentPage(newPage);
+    setEditingId(null);
+    setToolbarPos(null);
+  }, []);
+
   return (
     <>
       <style>{CSS}</style>
@@ -590,9 +648,7 @@ export default function PDFLiveEditor() {
             <span className="pdfeditor-logo-pill">LIVE</span>
             PDF Editor
             {fileName && (
-              <span style={{ color: "#555", fontSize: 11, maxWidth: 320, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                — {fileName}
-              </span>
+              <span className="pdfeditor-topbar-filename">— {fileName}</span>
             )}
           </div>
           <div className="pdfeditor-topbar-actions">
@@ -612,14 +668,14 @@ export default function PDFLiveEditor() {
               onClick={exportPDF}
               disabled={!pdfDoc || loading}
             >
-              ↓ Export PDF
+              ↓ Export
             </button>
           </div>
         </div>
 
         <div className="pdfeditor-main">
 
-          {/* SIDEBAR */}
+          {/* SIDEBAR — desktop only */}
           <div className="pdfeditor-sidebar">
             {!pdfDoc ? (
               <div className="pdfeditor-sidebar-section">
@@ -649,7 +705,7 @@ export default function PDFLiveEditor() {
                   {Array.from({ length: numPages }, (_, i) => i + 1).map(p => (
                     <div key={p}
                       className={`pdfeditor-page-thumb-item${currentPage === p ? " active" : ""}`}
-                      onClick={() => { setCurrentPage(p); setEditingId(null); setToolbarPos(null); }}>
+                      onClick={() => changePage(p)}>
                       <div className="pdfeditor-thumb-wrap">
                         {thumbs[p]
                           ? <img src={thumbs[p]} alt={`Page ${p}`} />
@@ -669,38 +725,41 @@ export default function PDFLiveEditor() {
           </div>
 
           {/* EDITOR COLUMN */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
 
             {pdfDoc && (
               <div className="pdfeditor-toolbar">
                 <button className="pdfeditor-tool-btn"
-                  onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); setEditingId(null); }}
+                  onClick={() => changePage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}>← Prev</button>
-                <span style={{ fontSize: 12, fontFamily: "DM Mono", color: "var(--muted)", minWidth: 70, textAlign: "center" }}>
+                <span style={{ fontSize: 12, fontFamily: "DM Mono", color: "var(--muted)", minWidth: 60, textAlign: "center", flexShrink: 0 }}>
                   {currentPage} / {numPages}
                 </span>
                 <button className="pdfeditor-tool-btn"
-                  onClick={() => { setCurrentPage(p => Math.min(numPages, p + 1)); setEditingId(null); }}
+                  onClick={() => changePage(Math.min(numPages, currentPage + 1))}
                   disabled={currentPage === numPages}>Next →</button>
                 <div className="pdfeditor-tool-sep" />
-                <span style={{ fontSize: 11, fontFamily: "DM Mono", color: "var(--muted)" }}>Zoom</span>
+                <span style={{ fontSize: 11, fontFamily: "DM Mono", color: "var(--muted)", flexShrink: 0 }}>Zoom</span>
                 <button className="pdfeditor-tool-btn pdfeditor-btn-sm"
-                  onClick={() => setZoom(z => Math.max(50, z - 25))}>−</button>
-                <span style={{ fontSize: 12, fontFamily: "DM Mono", width: 44, textAlign: "center" }}>{zoom}%</span>
+                  onClick={() => setZoom(z => Math.max(30, z - 10))}>−</button>
+                <span style={{ fontSize: 12, fontFamily: "DM Mono", width: 44, textAlign: "center", flexShrink: 0 }}>{zoom}%</span>
                 <button className="pdfeditor-tool-btn pdfeditor-btn-sm"
-                  onClick={() => setZoom(z => Math.min(200, z + 25))}>+</button>
+                  onClick={() => setZoom(z => Math.min(200, z + 10))}>+</button>
                 <button className="pdfeditor-tool-btn pdfeditor-btn-sm"
                   onClick={() => setZoom(100)}>Reset</button>
                 <div className="pdfeditor-tool-sep" />
-                <span style={{ fontSize: 11, color: "var(--muted)", fontFamily: "DM Mono" }}>
+                <span className="pdfeditor-tool-hint" style={{ fontSize: 11, color: "var(--muted)", fontFamily: "DM Mono", flexShrink: 0 }}>
                   💡 Click any text to edit
                 </span>
               </div>
             )}
 
-            <div className="pdfeditor-editor-area"
-              onClick={() => { setEditingId(null); setToolbarPos(null); }}>
-
+            {/* EDITOR AREA — ref added for auto-fit zoom */}
+            <div
+              className="pdfeditor-editor-area"
+              ref={editorAreaRef}
+              onClick={() => { setEditingId(null); setToolbarPos(null); }}
+            >
               {!pdfDoc ? (
                 <div className="pdfeditor-empty-state">
                   <div className="pdfeditor-empty-icon">📝</div>
@@ -725,10 +784,8 @@ export default function PDFLiveEditor() {
                     className="pdfeditor-page-wrapper"
                     style={{ width: currentPageSize.w, height: currentPageSize.h }}
                   >
-                    {/* Canvas — text gets whited out by useEffect after blocks load */}
                     <canvas ref={canvasRef} className="pdfeditor-page-canvas" />
 
-                    {/* Text overlay — only source of text the user sees */}
                     <div className="pdfeditor-text-layer">
                       {currentBlocks.map(block => (
                         <div
@@ -745,6 +802,7 @@ export default function PDFLiveEditor() {
                             height: block.h + 6,
                           }}
                           onMouseDown={e => { e.stopPropagation(); selectBlock(block, e); }}
+                          onTouchStart={e => { e.stopPropagation(); selectBlock(block, e); }}
                         >
                           <textarea
                             ref={el => { textRefs.current[block.id] = el; }}
@@ -770,10 +828,11 @@ export default function PDFLiveEditor() {
                         className="pdfeditor-text-toolbar"
                         style={{
                           position: "absolute",
-                          left: Math.max(0, Math.min(toolbarPos.x, (currentPageSize.w || 600) - 340)),
+                          left: Math.max(0, Math.min(toolbarPos.x, (currentPageSize.w || 600) - 300)),
                           top: Math.max(0, toolbarPos.y),
                         }}
                         onMouseDown={e => e.stopPropagation()}
+                        onTouchStart={e => e.stopPropagation()}
                       >
                         <span className="pdfeditor-tt-label">Size</span>
                         <input
@@ -806,6 +865,26 @@ export default function PDFLiveEditor() {
             </div>
           </div>
         </div>
+
+        {/* MOBILE PAGE STRIP — replaces sidebar on mobile */}
+        {pdfDoc && numPages > 1 && (
+          <div className="pdfeditor-mobile-bar">
+            <div className="pdfeditor-mobile-thumbs">
+              {Array.from({ length: numPages }, (_, i) => i + 1).map(p => (
+                <div
+                  key={p}
+                  className={`pdfeditor-mobile-thumb${currentPage === p ? " active" : ""}`}
+                  onClick={() => changePage(p)}
+                >
+                  {thumbs[p]
+                    ? <img src={thumbs[p]} alt={`Page ${p}`} />
+                    : <div style={{ width: 28, height: 40, background: "#333", borderRadius: 2 }} />}
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* STATUS BAR */}
         <div className="pdfeditor-statusbar">
